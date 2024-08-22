@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { BlogUploadForm } from "@/components/component/upload-blog-form";
 
-export default function NewPostPage() {
+export default async function NewPostPage() {
   return (
     <ContentLayout title="New Post">
       <Breadcrumb>
@@ -39,6 +39,7 @@ export default function NewPostPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
       <BlogUploadForm />
     </ContentLayout>
   );

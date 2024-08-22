@@ -1,0 +1,83 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id         String   @id @default(uuid())
+    email      String   @unique
+    clerkId    String   @unique
+    name       String?
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    userAvatar String?
+
+    // Relations
+    conversations Conversation[] @relation("UserConversations")
+    seenMessages  Message[]      @relation("SeenMessages")
+    accounts      Account[]
+    messages      Message[]
+    Post          Post[]
+}
+
+model Post {
+    id              String   @unique @default(uuid())
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    title           String   @db.VarChar(255)
+    category        String   @db.VarChar(255)
+    slug            String   @db.VarChar(255)
+    content         String?
+    seoKeywords     String?
+    metaDescription String?
+    published       Boolean  @default(false)
+    author          User     @relation(fields: [authorId], references: [id])
+    authorId        String
+    Tag             Tag[]
+}
+
+model Tag {
+    id     String @id @default(uuid())
+    name   String
+    Post   Post   @relation(fields: [postId], references: [id])
+    postId String
+}
+
+model Account {
+    id     String @id @default(uuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+    // stripeCustomerId String @unique
+
+    @@unique([userId])
+}
+
+model Conversation {
+    id            String   @id @default(uuid())
+    createdAt     DateTime @default(now())
+    lastMessageAt DateTime @default(now())
+    name          String?
+    isGroup       Boolean?
+
+    // Relations
+    users    User[]    @relation("UserConversations")
+    messages Message[]
+}
+
+model Message {
+    id        String   @id @default(uuid())
+    body      String?
+    image     String?
+    createdAt DateTime @default(now())
+
+    // Relations
+    seen           User[]       @relation("SeenMessages")
+    conversationId String
+    conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+    senderId       String
+    sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}

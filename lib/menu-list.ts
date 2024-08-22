@@ -69,13 +69,13 @@ export function getMenuList(pathname: string): Group[] {
           icon: Bookmark,
           submenus: [],
         },
-        {
-          href: "/tags",
-          label: "Tags",
-          active: pathname.includes("/tags"),
-          icon: Tag,
-          submenus: [],
-        },
+        // {
+        //   href: "/tags",
+        //   label: "Tags",
+        //   active: pathname.includes("/tags"),
+        //   icon: Tag,
+        //   submenus: [],
+        // },
       ],
     },
     {

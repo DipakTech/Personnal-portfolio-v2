@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import {
   Form,
   FormControl,
@@ -8,12 +9,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { MinimalTiptapEditor } from "../minimal-tiptap";
+import { useEffect, useState } from "react";
+import { Content } from "@tiptap/core";
 
-export const ExampleForm = () => {
+export const ExampleForm = ({ aiGenerated }: { aiGenerated: string }) => {
+  const [globalState, setEditglobalState] = useState<string | Content | null>(
+    aiGenerated,
+  );
+
   const formSchema = z.object({
     description: z
       .string({
@@ -23,19 +29,27 @@ export const ExampleForm = () => {
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
-      description: "",
+      description: aiGenerated,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const { setValue } = form;
+
+  useEffect(() => {
+    if (aiGenerated) {
+      setValue("description", aiGenerated);
+    }
+  }, [aiGenerated, setValue]);
+
+  const handleChange = (value: any): void => {
+    setEditglobalState(value);
+    // setValue("description", value);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form className="w-full space-y-6">
         <FormField
           control={form.control}
           name="description"
@@ -45,8 +59,10 @@ export const ExampleForm = () => {
               <FormControl>
                 <MinimalTiptapEditor
                   {...field}
+                  content={globalState}
+                  onChange={handleChange}
                   throttleDelay={2000}
-                  className={cn("w-full h-[500px]", {
+                  className={cn("w-full h-auto", {
                     "border-destructive focus-within:border-destructive":
                       form.formState.errors.description,
                   })}
