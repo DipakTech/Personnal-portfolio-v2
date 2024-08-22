@@ -25,8 +25,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 }) => {
   const otherUser = useOtherUser(conversation);
 
-  console.log(otherUser, "other user..");
-
   const router = useRouter();
 
   const handleClick = useCallback(() => {
