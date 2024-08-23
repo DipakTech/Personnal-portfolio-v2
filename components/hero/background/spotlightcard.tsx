@@ -58,11 +58,11 @@ export function SpotlightPage() {
                           </span>
                         </div>
                         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
-                          Nepali Tools
+                          Communication Tools
                         </h3>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
-                          Explore Nepali tools crafted to make your everyday
-                          tasks easier and more efficient.
+                          communicate with your developer friend to boost your
+                          everyday productivity.
                         </p>
                       </div>
                     </div>
@@ -122,11 +122,11 @@ export function SpotlightPage() {
                           </span>
                         </div>
                         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
-                          Network Tools
+                          Share your Knowledge
                         </h3>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
-                          Discover Network Tools to streamline tasks and boost
-                          network efficiency.
+                          Share your knowledge via blog post. automate with
+                          artifical intelligent to write effieient blog post.
                         </p>
                       </div>
                     </div>
@@ -187,7 +187,7 @@ export function SpotlightPage() {
                           </span>
                         </div>
                         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
-                          Text Tools
+                          features comming soon!!! 🚀🔥
                         </h3>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
                           Manipulate and analyze text with powerful utilities.

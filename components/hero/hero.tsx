@@ -5,8 +5,10 @@ import Particles from "./particles";
 import { Input } from "../ui/input";
 import BackgroundDots from "./dot-pattern-background";
 import { SpotlightPage } from "./background/spotlightcard";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
-export default function Hero() {
+export default function Hero({ href }: { href: any }) {
   return (
     <section className="flex flex-col ">
       <div className="relative  mx-auto px-4 pb-32 sm:px-6">
@@ -32,17 +34,24 @@ export default function Hero() {
         <div className="pt-32 pb-16 md:pt-52 md:pb-10">
           <div className="container mx-auto text-center">
             <h1 className="z-10 text-4xl font-extrabold text-gray-900 dark:text-white lg:text-6xl">
-              Effortless Solutions For <br /> Your Everyday{" "}
-              <span className="main-text"> Tasks</span> 🚀
+              Effortless Communication <br /> For{" "}
+              <span className="main-text"> Developers</span> 🚀
             </h1>
             <p className="mt-8 text-xl text-gray-700 dark:text-gray-300">
               Our innovative web tools are designed to simplify your daily
-              routine and boost your productivity.
+              communication and articles powered by AI.
             </p>
+            <div className="pt-10">
+              <Link href={href}>
+                <Button className="inline-flex h-12 animate shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                  Lets chat
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        <form className="mx-auto max-w-xl" action="/search" method="GET">
+        {/* <form className="mx-auto max-w-xl" action="/search" method="GET">
           <div className="relative group">
             <Input
               type="search"
@@ -88,16 +97,16 @@ export default function Hero() {
               </svg>
             </button>
           </div>
-        </form>
+        </form> */}
       </div>
 
-      <div className="mb-16 text-center relative">
+      {/* <div className="mb-16 text-center relative">
         <h2 className="text-4xl md:text-4xl font-extrabold tracking-tight relative inline-block">
           <span className="text-indigo-600 dark:text-indigo-400">
             {" "}
             <a
               className="no-underline"
-              href="https://neptools.com/nepali-tools"
+              href="#/nepali-tools"
             >
               Nepali Tools
             </a>
@@ -126,7 +135,7 @@ export default function Hero() {
           <span className="w-2 h-2 bg-blue-400 dark:bg-blue-200 rounded-full"></span>
           <span className="w-2 h-2 bg-blue-200 dark:bg-blue-600 rounded-full"></span>
         </div>
-      </div>
+      </div> */}
 
       <SpotlightPage />
 
@@ -139,15 +148,14 @@ export default function Hero() {
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
             <div className="relative z-10 space-y-4">
               <h2 className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-3xl font-bold text-transparent dark:from-blue-400 dark:to-purple-500">
-                Neptools
+                Index Nepal
               </h2>
               <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-                Empowering your digital journey with innovative Nepali web
-                tools.
+                Empowering your digital journey with web tools.
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="https://www.facebook.com/neptools"
+                  href=""
                   target="_blank"
                   className="transform text-blue-500 transition-colors duration-200 hover:scale-110 hover:text-blue-400"
                 >
@@ -166,7 +174,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="https://www.instagram.com/neptools.ig/"
+                  href=""
                   target="_blank"
                   className="transform text-pink-500 transition-colors duration-200 hover:scale-110 hover:text-pink-400"
                 >
@@ -185,7 +193,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="https://x.com/neptools"
+                  href="#"
                   target="_blank"
                   className="transform text-blue-400 transition-colors duration-200 hover:scale-110 hover:text-blue-300"
                 >
@@ -216,7 +224,7 @@ export default function Hero() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="https://neptools.com"
+                    href="#"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Home
@@ -224,7 +232,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/tools"
+                    href="#/tools"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Tools
@@ -232,7 +240,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/about"
+                    href="#/about"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     About
@@ -240,7 +248,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/contact"
+                    href="#/contact"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Contact
@@ -255,7 +263,7 @@ export default function Hero() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="https://neptools.com/preeti-to-unicode"
+                    href="#/preeti-to-unicode"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Preeti to Unicode
@@ -263,7 +271,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/unicode-to-preeti"
+                    href="#/unicode-to-preeti"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Unicode To Preeti
@@ -271,7 +279,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/nepali-date-converter"
+                    href="#/nepali-date-converter"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Nepali Date Converter
@@ -279,7 +287,7 @@ export default function Hero() {
                 </li>
                 <li>
                   <a
-                    href="https://neptools.com/type-in-nepali"
+                    href="#/type-in-nepali"
                     className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Nepali Typer
@@ -315,7 +323,7 @@ export default function Hero() {
         <div className="mt-12 border-t border-gray-200 pt-8 pb-5 dark:border-gray-700">
           <div className="container mx-auto flex flex-col items-center justify-between px-4 md:flex-row">
             <div className="mb-4 text-sm text-gray-600 md:mb-0 dark:text-gray-400">
-              © 2024 Neptools. All Rights Reserved.
+              © 2024 Dipak. All Rights Reserved.
             </div>
             <div className="flex items-center space-x-2 z-30">
               <span className="text-sm text-gray-600 dark:text-gray-400">
