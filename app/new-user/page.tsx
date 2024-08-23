@@ -24,7 +24,7 @@ const createNewUser = async () => {
     });
   }
 
-  redirect("/chat");
+  redirect("/conversations");
 };
 
 const NewUser = async () => {

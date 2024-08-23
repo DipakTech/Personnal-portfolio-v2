@@ -13,6 +13,8 @@ export const getUserFromClerkID = async () => {
     select: {
       id: true,
       email: true,
+      userAvatar: true,
+      name: true,
     },
   });
 

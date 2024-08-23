@@ -1,11 +1,15 @@
 import Header from "@/components/Header/Header";
 import BackgroundDots from "@/components/hero/dot-pattern-background";
 import Hero from "@/components/hero/hero";
+import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 export default async function Home() {
-  // const { userId } = await auth();
+  const { userId } = auth();
+  if (userId) {
+    redirect("/new-user");
+  }
   // let href = userId ? "/chat" : "/new-user";
 
   return (

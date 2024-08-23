@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -16,16 +17,15 @@ model User {
     updatedAt  DateTime @updatedAt
     userAvatar String?
 
-    // Relations
-    conversations Conversation[] @relation("UserConversations")
+    conversations Conversation[]
     seenMessages  Message[]      @relation("SeenMessages")
     accounts      Account[]
     messages      Message[]
-    Post          Post[]
+    posts         Post[]
 }
 
 model Post {
-    id              String   @unique @default(uuid())
+    id              String   @id @default(uuid())
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
     title           String   @db.VarChar(255)
@@ -37,14 +37,19 @@ model Post {
     published       Boolean  @default(false)
     author          User     @relation(fields: [authorId], references: [id])
     authorId        String
-    Tag             Tag[]
+    tags            Tag[]
+
+    @@index([authorId])
 }
 
 model Tag {
-    id     String @id @default(uuid())
+    id     String @default(uuid())
     name   String
-    Post   Post   @relation(fields: [postId], references: [id])
+    post   Post   @relation(fields: [postId], references: [id])
     postId String
+
+    @@id([id, postId])
+    @@index([postId])
 }
 
 model Account {
@@ -54,6 +59,7 @@ model Account {
     // stripeCustomerId String @unique
 
     @@unique([userId])
+    @@index([userId])
 }
 
 model Conversation {
@@ -63,8 +69,7 @@ model Conversation {
     name          String?
     isGroup       Boolean?
 
-    // Relations
-    users    User[]    @relation("UserConversations")
+    users    User[]
     messages Message[]
 }
 
@@ -74,10 +79,12 @@ model Message {
     image     String?
     createdAt DateTime @default(now())
 
-    // Relations
     seen           User[]       @relation("SeenMessages")
     conversationId String
     conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
     senderId       String
     sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+    @@index([conversationId])
+    @@index([senderId])
 }
