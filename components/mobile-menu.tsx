@@ -36,11 +36,11 @@ export default function MobileMenu() {
   });
 
   return (
-    <div className="md:hidden flex items-center ml-4">
+    <div className="flex items-center ml-4">
       {/* Hamburger button */}
       <button
         ref={trigger}
-        className={`hamburger ${mobileNavOpen && "active"}`}
+        className={`hamburger md:hidden ${mobileNavOpen && "active"}`}
         aria-controls="mobile-nav"
         aria-expanded={mobileNavOpen}
         onClick={() => setMobileNavOpen(!mobileNavOpen)}
@@ -72,41 +72,17 @@ export default function MobileMenu() {
           <li>
             <Link
               className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="/about"
+              href="/blogs"
             >
-              About
+              Blogs
             </Link>
           </li>
           <li>
             <Link
               className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="/integrations"
+              href="/dashboard"
             >
-              Integrations
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="/pricing"
-            >
-              Pricing
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="/customers"
-            >
-              Customers
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="/changelog"
-            >
-              Changelog
+              Dashboard
             </Link>
           </li>
         </ul>

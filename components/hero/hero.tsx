@@ -16,7 +16,7 @@ export default function Hero({ href }: { href: any }) {
         <Particles className="absolute inset-0 -z-10" />
 
         {/* Illustration */}
-        <div
+        {/* <div
           className="absolute pb-32 inset-0 -z-10 -mx-28 rounded-b-[32px] pointer-events-none overflow-hidden"
           aria-hidden="true"
         >
@@ -29,7 +29,7 @@ export default function Hero({ href }: { href: any }) {
               alt="Hero Illustration"
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="pt-32 pb-16 md:pt-52 md:pb-10">
           <div className="container mx-auto text-center">

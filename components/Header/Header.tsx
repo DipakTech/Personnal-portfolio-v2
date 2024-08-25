@@ -91,25 +91,29 @@ export default function Header() {
                   [1, 0],
                 ),
               }}
-              className="flex items-center space-x-4 text-sm font-medium text-slate-400"
+              className=" sm:flex items-center space-x-6 text-sm font-medium text-slate-400"
             >
-              <Link
-                className="font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
-                href="/blogs"
-              >
-                Blogs
-              </Link>
-              <Link
-                className="font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
-                href="/dashboard"
-              >
-                Dashboard
-              </Link>
-              <nav className="ml-auto flex items-center gap-2">
-                <ModeToggle />
-                <UserButton />
-              </nav>
-              <MobileMenu />
+              <div className="flex items-center space-x-2">
+                <Link
+                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  href="/blogs"
+                >
+                  Blogs
+                </Link>
+                <Link
+                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  href="/dashboard"
+                >
+                  Dashboard
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center ">
+                <nav className="ml-auto flex items-center gap-2">
+                  <ModeToggle />
+                  <UserButton />
+                </nav>
+                <MobileMenu />
+              </div>
             </motion.nav>
           </div>
         </motion.header>

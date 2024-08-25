@@ -16,8 +16,8 @@ const BlogListPage = () => {
   return (
     <>
       <Header />
-      <main className="min-h-[calc(100vh-97px)] pt-24 flex-1">
-        <BentoGrid className="max-w-6xl mx-auto">
+      <main className="min-h-[calc(100vh-97px)] pt-24 flex-1 ">
+        <BentoGrid className="max-w-6xl mx-auto ">
           {items.map((item, i) => (
             <BentoGridItem
               key={i}
