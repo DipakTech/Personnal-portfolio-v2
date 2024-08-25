@@ -32,9 +32,6 @@ export function ChatLayout({
   const [selectedUser, setSelectedUser] = React.useState(userData[0]);
   const [isMobile, setIsMobile] = useState(false);
 
-  console.log(initialConversations, "initialConversations");
-  console.log(users, "users...");
-
   useEffect(() => {
     const checkScreenWidth = () => {
       setIsMobile(window.innerWidth <= 768);

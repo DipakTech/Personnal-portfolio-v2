@@ -51,8 +51,6 @@ export const MinimalTiptapEditor = React.forwardRef<
     ...props,
   });
 
-  console.log(props.content, "content");
-
   const handleClick = () => {
     if (editor && !editor?.isFocused) {
       editor?.chain().focus().run();

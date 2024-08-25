@@ -12,7 +12,6 @@ interface ChatProps {
 
 export function Chat({ messages, selectedUser, isMobile }: ChatProps) {
   const { isOpen } = useConversation();
-  console.log(isOpen, "is open");
 
   const [messagesState, setMessages] = React.useState<Message[]>(
     messages ?? [],

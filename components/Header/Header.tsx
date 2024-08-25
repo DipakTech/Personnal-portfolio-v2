@@ -1,111 +1,118 @@
-import React from "react";
+"use client";
+
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import Link from "next/link";
+import { useEffect } from "react";
 import { ModeToggle } from "../Theme-toggle/Toggle";
 import { UserButton } from "@clerk/nextjs";
-import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
 import MobileMenu from "../mobile-menu";
-type link = {
-  name: string;
-  Link: string;
-};
 
-const NavLink: link[] = [
-  {
-    name: "Home",
-    Link: "/",
-  },
-  {
-    name: "Blogs",
-    Link: "/blogs",
-  },
-  {
-    name: "About",
-    Link: "/about",
-  },
-];
-
-const Header = () => {
-  return (
-    <header className="absolute w-full z-30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Site branding */}
-          <div className="flex-1">
-            <Link
-              href="/"
-              className="flex justify-start items-center hover:opacity-85 transition-opacity duration-300"
-            >
-              <PanelsTopLeft className="w-6 h-6 mr-3" />
-              <span className="font-bold">Dipak Giri</span>
-            </Link>
-          </div>
-
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex md:grow">
-            {/* Desktop menu links */}
-            <ul className="flex grow justify-center flex-wrap items-center">
-              {/* <li>
-                <Link
-                  className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
-                  href="/about"
-                >
-                  Blogs
-                </Link>
-              </li> */}
-              <li>
-                <Link
-                  className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
-                  href="/dashboard"
-                >
-                  Dashboard
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
-                  href="/about"
-                >
-                  About
-                </Link>
-              </li> */}
-            </ul>
-          </nav>
-
-          {/* Desktop sign in links */}
-          <ul className="flex-1 flex justify-end items-center">
-            {/* <li>
-              <Link
-                className="font-medium text-sm text-slate-300 hover:text-white whitespace-nowrap transition duration-150 ease-in-out"
-                href="/signin"
-              >
-                Sign in
-              </Link>
-            </li>
-            <li className="ml-6">
-              <Link
-                className="btn-sm text-slate-300 hover:text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.slate.900),_theme(colors.slate.900))_padding-box,_conic-gradient(theme(colors.slate.400),_theme(colors.slate.700)_25%,_theme(colors.slate.700)_75%,_theme(colors.slate.400)_100%)_border-box] relative before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-full before:pointer-events-none"
-                href="/signup"
-              >
-                <span className="relative inline-flex items-center">
-                  Sign up{" "}
-                  <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
-                    -&gt;
-                  </span>
-                </span>
-              </Link>
-            </li> */}
-
-            <nav className="ml-auto flex items-center gap-2">
-              <ModeToggle />
-              <UserButton />
-            </nav>
-          </ul>
-
-          <MobileMenu />
-        </div>
-      </div>
-    </header>
+function useBoundedScroll(threshold: number) {
+  let { scrollY } = useScroll();
+  let scrollYBounded = useMotionValue(0);
+  let scrollYBoundedProgress = useTransform(
+    scrollYBounded,
+    [0, threshold],
+    [0, 1],
   );
-};
 
-export default Header;
+  useEffect(() => {
+    return scrollY.on("change", (current) => {
+      let previous = scrollY.getPrevious();
+      let diff = current - previous!;
+      let newScrollYBounded = scrollYBounded.get() + diff;
+
+      scrollYBounded.set(clamp(newScrollYBounded, 0, threshold));
+    });
+  }, [threshold, scrollY, scrollYBounded]);
+
+  return { scrollYBounded, scrollYBoundedProgress };
+}
+
+export default function Header() {
+  let { scrollYBoundedProgress } = useBoundedScroll(400);
+  let scrollYBoundedProgressDelayed = useTransform(
+    scrollYBoundedProgress,
+    [0, 0.75, 1],
+    [0, 0, 1],
+  );
+
+  return (
+    <div className="mx-auto flex w-full max-w-5xl flex-1 overflow-hidden dark:text-slate-900 z-50">
+      <div className="z-0 flex-1 overflow-y-scroll">
+        <motion.header
+          style={{
+            height: useTransform(
+              scrollYBoundedProgressDelayed,
+              [0, 1],
+              [80, 50],
+            ),
+            backgroundColor: useMotionTemplate`rgb(30, 41, 59 / ${useTransform(
+              scrollYBoundedProgressDelayed,
+              [0, 1],
+              [1, 0.1],
+            )})`, // Adjusted to use a dark slate color
+          }}
+          className="fixed inset-x-0 flex h-10 shadow backdrop-blur-md"
+        >
+          <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-8">
+            <motion.p
+              style={{
+                scale: useTransform(
+                  scrollYBoundedProgressDelayed,
+                  [0, 1],
+                  [1, 0.9],
+                ),
+              }}
+              className="flex origin-left items-center text-xl font-semibold uppercase"
+            >
+              <span className="-ml-1.5 inline-block -rotate-90 text-[10px]  text-slate-900 dark:text-slate-300 dark:hover:text-white leading-[0]">
+                The
+              </span>
+              <span className="-ml-1 text-2xl text-slate-900 dark:text-slate-300 dark:hover:text-white tracking-[-.075em]">
+                Dipak Giri
+              </span>
+            </motion.p>
+            <motion.nav
+              style={{
+                opacity: useTransform(
+                  scrollYBoundedProgressDelayed,
+                  [0, 1],
+                  [1, 0],
+                ),
+              }}
+              className="flex items-center space-x-4 text-sm font-medium text-slate-400"
+            >
+              <Link
+                className="font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                href="/blogs"
+              >
+                Blogs
+              </Link>
+              <Link
+                className="font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                href="/dashboard"
+              >
+                Dashboard
+              </Link>
+              <nav className="ml-auto flex items-center gap-2">
+                <ModeToggle />
+                <UserButton />
+              </nav>
+              <MobileMenu />
+            </motion.nav>
+          </div>
+        </motion.header>
+      </div>
+    </div>
+  );
+}
+
+let clamp = (number: number, min: number, max: number) =>
+  Math.min(Math.max(number, min), max);

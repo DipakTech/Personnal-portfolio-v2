@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 export const dynamic = "force-dynamic";
 import clsx from "clsx";
 import EmptyState from "./[conversationId]/components/components/EmptyState";
