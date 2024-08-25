@@ -3,10 +3,9 @@ import ConversationList from "./components/ConversationList";
 import { Metadata } from "next";
 import getUsers from "@/utils/actions/getUsers";
 import Sidebar from "./[conversationId]/components/components/sidebar/Sidebar";
-import { getUserFromClerkID } from "@/utils/auth";
 
 export const metadata: Metadata = {
-  title: "My Conversations | Nexus - Your Ultimate Chat Experience",
+  title: "My Conversations | Your Ultimate Chat Experience",
 };
 
 export default async function ConversationsLayout({
@@ -16,6 +15,9 @@ export default async function ConversationsLayout({
 }) {
   const conversations = await getConversations();
   const users = await getUsers();
+
+  console.log("conversations", conversations);
+  console.log("users", users);
 
   return (
     <Sidebar>
