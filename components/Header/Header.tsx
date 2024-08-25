@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { ModeToggle } from "../Theme-toggle/Toggle";
 import { UserButton } from "@clerk/nextjs";
 import MobileMenu from "../mobile-menu";
+import { useRouter } from "next/navigation";
 
 function useBoundedScroll(threshold: number) {
   let { scrollY } = useScroll();
@@ -43,6 +44,8 @@ export default function Header() {
     [0, 0, 1],
   );
 
+  const router = useRouter();
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 overflow-hidden dark:text-slate-900 z-50">
       <div className="z-0 flex-1 overflow-y-scroll">
@@ -70,7 +73,8 @@ export default function Header() {
                   [1, 0.9],
                 ),
               }}
-              className="flex origin-left items-center text-xl font-semibold uppercase"
+              onClick={() => router.push("/")}
+              className="flex origin-left items-center text-xl font-semibold uppercase cursor-pointer"
             >
               <span className="-ml-1.5 inline-block -rotate-90 text-[10px]  text-slate-900 dark:text-slate-300 dark:hover:text-white leading-[0]">
                 The
