@@ -1,7 +1,7 @@
 "use client";
 
 import Avatar from "@/app/conversations/[conversationId]/components/components/Avatar";
-import LoadingModal from "@/app/conversations/[conversationId]/components/components/LoadingModal";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,7 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
 
   return (
     <>
-      {isLoading && <LoadingModal />}
+      {isLoading && <LoadingSpinner />}
       <div
         title="Start a chat"
         onClick={handleClick}

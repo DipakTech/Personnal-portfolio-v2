@@ -1,3 +1,4 @@
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { prisma } from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -15,6 +16,8 @@ const createNewUser = async () => {
     },
   });
 
+  console.log(match, "match data......");
+
   if (!match) {
     await prisma.user.create({
       data: {
@@ -31,7 +34,7 @@ const createNewUser = async () => {
 
 const NewUser = async () => {
   await createNewUser();
-  return <div>...loading</div>;
+  return <LoadingSpinner />;
 };
 
 export default NewUser;
