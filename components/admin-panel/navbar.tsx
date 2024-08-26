@@ -1,6 +1,7 @@
 import { SheetMenu } from "@/components/admin-panel/sheet-menu";
 import { ModeToggle } from "../Theme-toggle/Toggle";
 import { UserNav } from "./user.nav";
+import { UserButton } from "@clerk/nextjs";
 
 interface NavbarProps {
   title: string;
@@ -16,7 +17,8 @@ export function Navbar({ title }: NavbarProps) {
         </div>
         <div className="flex flex-1 items-center space-x-2 justify-end">
           <ModeToggle />
-          <UserNav />
+          {/* <UserNav /> */}
+          <UserButton />
         </div>
       </div>
     </header>

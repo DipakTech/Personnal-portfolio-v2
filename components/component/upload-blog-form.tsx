@@ -1,7 +1,6 @@
 "use client";
 
 import { useTransition } from "react";
-
 import {
   Card,
   CardHeader,
@@ -28,29 +27,43 @@ import { generateSlug } from "@/utils/generateSlug";
 import { ChevronRight, Loader } from "lucide-react";
 import AnimatedGradientText from "@/app/(dashboardlayout)/dashboard/components/animated-text";
 import { cn } from "@/lib/utils";
+import { Separator } from "../ui/separator";
+import { CldUploadWidget } from "next-cloudinary";
+import { HiPhoto } from "react-icons/hi2";
+import Image from "next/image";
+import { Content } from "@tiptap/core";
 
 type Blog = {
   author: string;
   title: string;
   metaDescription: string;
-  seoKeywords: string;
   slug: string;
 };
 
 export function BlogUploadForm() {
   const [isPending, startTransition] = useTransition();
-  const [content, setContent] = useState<string>("");
   const [blogInfo, setBlogInfo] = useState<Blog>({
     author: "",
     title: "",
     metaDescription: "",
-    seoKeywords: "",
     slug: "",
   });
   const [tags, setTags] = useState<string[]>([]);
   const [seoKeywords, setSeoKeywords] = useState<string[]>([]);
   const [category, setCategory] = useState<string>();
-  const [images, setImages] = useState<string[]>([]);
+  const [image, setImage] = useState<string>();
+
+  const [globalState, setEditglobalState] = useState<string | Content | null>(
+    "",
+  );
+
+  console.log("blog info", {
+    content: globalState,
+    tags,
+    seoKeywords,
+    category,
+    ...blogInfo,
+  });
 
   const fetchContent = (e: any) => {
     e.preventDefault();
@@ -69,18 +82,19 @@ export function BlogUploadForm() {
         body: JSON.stringify(requestData),
       });
       const data = await res.json();
-      setContent(data);
+      setEditglobalState(data);
     });
   };
 
   return (
-    <Card className="w-full mt-10 z-auto">
+    <Card className="w-full mt-5 z-auto">
       <CardHeader>
         <CardTitle>New Blog Post</CardTitle>
         <CardDescription>
           Fill out the form to create a new blog post.
         </CardDescription>
       </CardHeader>
+      <Separator />
       <CardContent>
         <form className="grid grid-cols-1 gap-6 ">
           <div className="space-y-4">
@@ -139,15 +153,57 @@ export function BlogUploadForm() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="image">Image</Label>
-                <Input id="image" type="file" />
+              <div className=" flex gap-3 items-center">
+                <Label htmlFor="image">Image (click to upload)</Label>
+
+                <CldUploadWidget
+                  uploadPreset="vpnoelmn"
+                  options={{
+                    sources: ["local", "url", "unsplash", "camera"],
+                    multiple: true,
+                    maxFiles: 5,
+                  }}
+                  onSuccess={(result: any, { widget }) => {
+                    setImage(result?.info?.thumbnail_url);
+                    console.log("image", result);
+                  }}
+                  onQueuesEnd={(result, { widget }) => {
+                    widget.close();
+                  }}
+                >
+                  {({ open }) => {
+                    return (
+                      <>
+                        <HiPhoto
+                          size={30}
+                          className="text-cyan-500 cursor-pointer"
+                          onClick={() => open()}
+                        />
+                        {image && (
+                          <Image
+                            src={image}
+                            alt="uploaded image"
+                            height={100}
+                            width={100}
+                          />
+                        )}
+                      </>
+                    );
+                  }}
+                </CldUploadWidget>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="meta-description">Meta Description</Label>
                   <Input
                     id="meta-description"
+                    value={blogInfo.metaDescription}
+                    onChange={(e) =>
+                      setBlogInfo({
+                        ...blogInfo,
+                        metaDescription: e.target.value,
+                      })
+                    }
                     placeholder="Enter meta description"
                   />
                 </div>
@@ -199,12 +255,15 @@ export function BlogUploadForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="image">Content</Label>
-            <ExampleForm aiGenerated={content} />
+            <ExampleForm
+              aiGenerated={globalState}
+              setEditglobalState={setEditglobalState}
+            />
           </div>
         </form>
       </CardContent>
       <CardFooter>
-        <Button type="submit" size="lg" className="">
+        <Button type="submit" size="sm" className="">
           Submit
         </Button>
       </CardFooter>

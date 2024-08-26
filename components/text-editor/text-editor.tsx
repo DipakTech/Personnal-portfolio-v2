@@ -12,20 +12,20 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { MinimalTiptapEditor } from "../minimal-tiptap";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Content } from "@tiptap/core";
 
-export const ExampleForm = ({ aiGenerated }: { aiGenerated: string }) => {
-  const [globalState, setEditglobalState] = useState<string | Content | null>(
-    aiGenerated,
-  );
+export const ExampleForm = ({
+  aiGenerated,
+  setEditglobalState,
+}: {
+  aiGenerated: Content;
+  setEditglobalState: Dispatch<SetStateAction<Content>>;
+}) => {
+  console.log(aiGenerated, "ai generated..");
 
   const formSchema = z.object({
-    description: z
-      .string({
-        required_error: "Description is required",
-      })
-      .min(1, "Description is required"),
+    description: z.any(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,7 +44,6 @@ export const ExampleForm = ({ aiGenerated }: { aiGenerated: string }) => {
 
   const handleChange = (value: any): void => {
     setEditglobalState(value);
-    // setValue("description", value);
   };
 
   return (
@@ -59,7 +58,7 @@ export const ExampleForm = ({ aiGenerated }: { aiGenerated: string }) => {
               <FormControl>
                 <MinimalTiptapEditor
                   {...field}
-                  content={globalState}
+                  content={aiGenerated}
                   onChange={handleChange}
                   throttleDelay={2000}
                   className={cn("w-full h-auto", {

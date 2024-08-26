@@ -10,11 +10,13 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { BlogUploadForm } from "@/components/component/upload-blog-form";
+import BackgroundDots from "@/components/hero/dot-pattern-background";
 
 export default async function NewPostPage() {
   return (
     <ContentLayout title="New Post">
       <Breadcrumb>
+        <BackgroundDots className="absolute inset-0 h-10 -z-10" quantity={15} />
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
