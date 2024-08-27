@@ -11,13 +11,18 @@ import Header from "@/components/Header/Header";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import Image from "next/image";
+import { getBlogs } from "@/utils/actions/blog/getBlogs";
+import { getCategories } from "@/utils/actions/blog/getCategories";
 
-const BlogListPage = () => {
+const BlogListPage = async () => {
+  const blogs = await getBlogs();
+  const categories = await getCategories();
+
   return (
     <>
       <Header />
       <main className="min-h-[calc(100vh-97px)] pt-24 flex-1 ">
-        <BentoGrid className="max-w-6xl mx-auto ">
+        <BentoGrid className="max-w-6xl mx-auto " categories={categories}>
           {items.map((item, i) => (
             <BentoGridItem
               key={i}

@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 
 import { ContentLayout } from "@/components/admin-panel/content-layout";
@@ -10,20 +9,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { CategoryListClient } from "@/components/Tables/categoryTable/client";
-import { Button } from "@/components/ui/button";
-import { AddCategory } from "@/components/Modals/Category/CategoryModal";
-import { useState } from "react";
+import CategoryLayout from "./components/CategoryLayout";
+import { getCategories } from "@/utils/actions/blog/getCategories";
 
-export default function CategoriesPage() {
-  const [open, setOpen] = useState(true);
-  const onClose = () => {
-    setOpen((prev) => !prev);
-  };
-
+export default async function CategoriesPage() {
+  const categories = await getCategories();
   return (
     <ContentLayout title="Categories">
-      <div className="flex justify-between w-full">
+      <div className="w-full">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -43,10 +36,8 @@ export default function CategoriesPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <Button onClick={onClose}>Add Category</Button>
+        <CategoryLayout categories={categories} />
       </div>
-      <AddCategory isOpen={open} onClose={onClose} />
-      <CategoryListClient />
     </ContentLayout>
   );
 }

@@ -25,31 +25,47 @@ model User {
 }
 
 model Post {
-    id              String   @id @default(uuid())
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
-    title           String   @db.VarChar(255)
-    category        String   @db.VarChar(255)
-    slug            String   @db.VarChar(255)
+    id              String       @id @default(uuid())
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+    title           String       @db.VarChar(255)
+    category        PostCategory @relation(fields: [postCategoryId], references: [id])
+    slug            String       @db.VarChar(255)
+    thumbnail       String?
     content         String?
     seoKeywords     String?
     metaDescription String?
-    published       Boolean  @default(false)
-    author          User     @relation(fields: [authorId], references: [id])
+    published       Boolean      @default(false)
+    author          User         @relation(fields: [authorId], references: [id])
     authorId        String
-    tags            Tag[]
+    postCategoryId  String
+    tags            PostTag[]
 
     @@index([authorId])
+    @@index([postCategoryId])
+}
+
+model PostCategory {
+    id    String @id @default(uuid())
+    name  String
+    posts Post[]
 }
 
 model Tag {
-    id     String @default(uuid())
-    name   String
+    id    String    @id @default(uuid())
+    name  String    @unique
+    posts PostTag[]
+}
+
+model PostTag {
     post   Post   @relation(fields: [postId], references: [id])
     postId String
+    tag    Tag    @relation(fields: [tagId], references: [id])
+    tagId  String
 
-    @@id([id, postId])
+    @@id([postId, tagId])
     @@index([postId])
+    @@index([tagId])
 }
 
 model Account {

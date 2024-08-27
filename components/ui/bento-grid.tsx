@@ -9,6 +9,7 @@ import { Button } from "./button";
 import { Separator } from "./separator";
 import BackgroundDots from "../hero/dot-pattern-background";
 import { ScrollArea } from "./scroll-area";
+import { Badge } from "./badge";
 
 const BlogHeading = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +25,14 @@ const BlogHeading = () => {
 export const BentoGrid = ({
   className,
   children,
+  categories,
 }: {
   className?: string;
   children?: React.ReactNode;
+  categories?: {
+    id: string;
+    name: string;
+  }[];
 }) => {
   return (
     <>
@@ -47,6 +53,13 @@ export const BentoGrid = ({
               className="inline-flex h-10 w-full lg:w-[500px] animate shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-1 focus:ring-slate-400 focus:ring-offset-1 focus:ring-offset-slate-50"
             />
           </div>
+        </div>
+        <div className="flex gap-1 flex-wrap max-w-5xl mx-auto mt-3">
+          {categories?.map((category: any) => (
+            <Badge key={category.id} className="cursor-pointer">
+              {category.name}
+            </Badge>
+          ))}
         </div>
         <Separator />
         <ScrollArea className="h-[calc(100vh-220px)]">

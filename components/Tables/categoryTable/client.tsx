@@ -9,7 +9,7 @@ interface CategoryListClientProps {
 export const CategoryListClient: React.FC<CategoryListClientProps> = () => {
   return (
     <>
-      <div className="mt-5">
+      <div className="mt-5 w-full">
         <DataTable
           searchKey="name"
           columns={activeColumns}

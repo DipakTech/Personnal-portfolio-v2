@@ -3,9 +3,11 @@ import BackgroundDots from "@/components/hero/dot-pattern-background";
 import Hero from "@/components/hero/hero";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const { userId } = auth();
+
   let href = userId ? "/conversations" : "/new-user";
 
   return (

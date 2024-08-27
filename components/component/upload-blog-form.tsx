@@ -32,6 +32,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import { HiPhoto } from "react-icons/hi2";
 import Image from "next/image";
 import { Content } from "@tiptap/core";
+import { createBlog } from "@/utils/actions/blog/createBlog";
 
 type Blog = {
   author: string;
@@ -40,7 +41,7 @@ type Blog = {
   slug: string;
 };
 
-export function BlogUploadForm() {
+export function BlogUploadForm({ categories }: { categories: any[] }) {
   const [isPending, startTransition] = useTransition();
   const [blogInfo, setBlogInfo] = useState<Blog>({
     author: "",
@@ -52,18 +53,24 @@ export function BlogUploadForm() {
   const [seoKeywords, setSeoKeywords] = useState<string[]>([]);
   const [category, setCategory] = useState<string>();
   const [image, setImage] = useState<string>();
-
   const [globalState, setEditglobalState] = useState<string | Content | null>(
     "",
   );
 
-  console.log("blog info", {
-    content: globalState,
-    tags,
-    seoKeywords,
-    category,
-    ...blogInfo,
-  });
+  const handleSubmit = () => {
+    startTransition(async () => {
+      await createBlog({
+        content: globalState,
+        tags,
+        seoKeywords,
+        categoryId: category,
+        author: blogInfo.author,
+        title: blogInfo.title,
+        metaDescription: blogInfo.metaDescription,
+        thumbnail: image,
+      });
+    });
+  };
 
   const fetchContent = (e: any) => {
     e.preventDefault();
@@ -134,10 +141,11 @@ export function BlogUploadForm() {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="technology">Technology</SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="lifestyle">Lifestyle</SelectItem>
-                    <SelectItem value="travel">Travel</SelectItem>
+                    {categories?.map((cate: { id: string; name: string }) => (
+                      <SelectItem key={cate.id} value={cate.id}>
+                        {cate.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -263,7 +271,7 @@ export function BlogUploadForm() {
         </form>
       </CardContent>
       <CardFooter>
-        <Button type="submit" size="sm" className="">
+        <Button type="submit" size="sm" className="" onClick={handleSubmit}>
           Submit
         </Button>
       </CardFooter>

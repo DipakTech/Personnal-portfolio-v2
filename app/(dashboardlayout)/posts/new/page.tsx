@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { BlogUploadForm } from "@/components/component/upload-blog-form";
 import BackgroundDots from "@/components/hero/dot-pattern-background";
+import { getCategories } from "@/utils/actions/blog/getCategories";
 
 export default async function NewPostPage() {
+  const categories = await getCategories();
   return (
     <ContentLayout title="New Post">
       <Breadcrumb>
@@ -42,7 +44,7 @@ export default async function NewPostPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <BlogUploadForm />
+      <BlogUploadForm categories={categories} />
     </ContentLayout>
   );
 }
