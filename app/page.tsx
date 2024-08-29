@@ -1,3 +1,4 @@
+import { Footer } from "@/components/admin-panel/footer";
 import Header from "@/components/Header/Header";
 import BackgroundDots from "@/components/hero/dot-pattern-background";
 import Hero from "@/components/hero/hero";
@@ -19,6 +20,7 @@ export default async function Home() {
       <main className="min-h-[calc(100vh-97px)] flex-1">
         <Hero href={href} />
       </main>
+      <Footer />
     </main>
   );
 }

@@ -77,6 +77,8 @@ const config = {
 
   animation: {
     shimmer: "shimmer 2s linear infinite",
+    spin: "spin 1s linear infinite",
+    ping: "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
   },
   keyframes: {
     shimmer: {
@@ -86,6 +88,14 @@ const config = {
       to: {
         backgroundPosition: "-200% 0",
       },
+    },
+
+    spin: {
+      from: { transform: "rotate(0deg)" },
+      to: { transform: "rotate(360deg)" },
+    },
+    ping: {
+      "75%, 100%": { transform: "scale(2)", opacity: "0" },
     },
   },
   plugins: [require("tailwindcss-animate")],
