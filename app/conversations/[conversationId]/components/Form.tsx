@@ -6,7 +6,7 @@ import { HiPhoto, HiPaperAirplane } from "react-icons/hi2";
 import MessageInput from "./MessageInput";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import useConversation from "@/hooks/useConversation";
-import { EmojiPicker } from "@/app/chat/emoji-picker";
+import { EmojiPicker } from "../../components/emoji-picker";
 
 const Form = () => {
   const { conversationId } = useConversation();

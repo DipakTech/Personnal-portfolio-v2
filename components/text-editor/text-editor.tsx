@@ -17,13 +17,11 @@ import { Content } from "@tiptap/core";
 
 export const ExampleForm = ({
   aiGenerated,
-  setEditglobalState,
+  handleChange,
 }: {
   aiGenerated: Content;
-  setEditglobalState: Dispatch<SetStateAction<Content>>;
+  handleChange: (val: any) => void;
 }) => {
-  console.log(aiGenerated, "ai generated..");
-
   const formSchema = z.object({
     description: z.any(),
   });
@@ -41,10 +39,6 @@ export const ExampleForm = ({
       setValue("description", aiGenerated);
     }
   }, [aiGenerated, setValue]);
-
-  const handleChange = (value: any): void => {
-    setEditglobalState(value);
-  };
 
   return (
     <Form {...form}>

@@ -24,17 +24,15 @@ import { ExampleForm } from "../text-editor/text-editor";
 import { InputTags } from "../ui/input-tags";
 import { useState } from "react";
 import { generateSlug } from "@/utils/generateSlug";
-import { ChevronRight, Loader } from "lucide-react";
-import AnimatedGradientText from "@/app/(dashboardlayout)/dashboard/components/animated-text";
-import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 import { CldUploadWidget } from "next-cloudinary";
 import { HiPhoto } from "react-icons/hi2";
 import Image from "next/image";
 import { Content } from "@tiptap/core";
 import { createBlog } from "@/utils/actions/blog/createBlog";
+import GenerateAiButton from "./generate-ai-button";
 
-type Blog = {
+export type Blog = {
   author: string;
   title: string;
   metaDescription: string;
@@ -53,14 +51,15 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
   const [seoKeywords, setSeoKeywords] = useState<string[]>([]);
   const [category, setCategory] = useState<string>();
   const [image, setImage] = useState<string>();
+  const [content, setContent] = useState<string | Content | null>("");
   const [globalState, setEditglobalState] = useState<string | Content | null>(
-    "",
+    content,
   );
 
   const handleSubmit = () => {
     startTransition(async () => {
       await createBlog({
-        content: globalState,
+        content,
         tags,
         seoKeywords,
         categoryId: category,
@@ -72,25 +71,8 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
     });
   };
 
-  const fetchContent = (e: any) => {
-    e.preventDefault();
-    startTransition(async () => {
-      const requestData = {
-        Title: blogInfo.title,
-        Category: category,
-        Tags: tags.join(","),
-      };
-
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-      const data = await res.json();
-      setEditglobalState(data);
-    });
+  const handleChange = (value: any): void => {
+    setContent(value);
   };
 
   return (
@@ -173,7 +155,6 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
                   }}
                   onSuccess={(result: any, { widget }) => {
                     setImage(result?.info?.thumbnail_url);
-                    console.log("image", result);
                   }}
                   onQueuesEnd={(result, { widget }) => {
                     widget.close();
@@ -239,40 +220,31 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
             </div>
           </div>
 
-          <div className="flex w-full justify-end items-end ml-auto">
-            <AnimatedGradientText
-              className="ml-auto w-[300px] hover:cursor-pointer"
-              onClick={fetchContent}
-            >
-              🎉 <hr className="mx-2 h-4 w-[1px] shrink-0 bg-gray-300" />{" "}
-              <span
-                className={cn(
-                  `inline animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
-                )}
-              >
-                {isPending ? (
-                  <span className="flex gap-2 items-center">
-                    Generating <Loader />
-                  </span>
-                ) : (
-                  "Generate content using Ai"
-                )}
-              </span>
-              <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </AnimatedGradientText>
-          </div>
+          <GenerateAiButton
+            setEditglobalState={setEditglobalState}
+            blogInfo={blogInfo}
+            category={category}
+            tags={tags}
+          />
+
           <div className="space-y-2">
             <Label htmlFor="image">Content</Label>
             <ExampleForm
               aiGenerated={globalState}
-              setEditglobalState={setEditglobalState}
+              handleChange={handleChange}
             />
           </div>
         </form>
       </CardContent>
       <CardFooter>
-        <Button type="submit" size="sm" className="" onClick={handleSubmit}>
-          Submit
+        <Button
+          type="submit"
+          size="sm"
+          className=""
+          onClick={handleSubmit}
+          disabled={isPending}
+        >
+          {isPending ? "Posting.." : "Submit"}
         </Button>
       </CardFooter>
     </Card>

@@ -47,7 +47,7 @@ export default function Header() {
   const router = useRouter();
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 overflow-hidden dark:text-slate-900 z-50">
+    <div className="mx-auto flex w-full max-w-7xl flex-1 overflow-hidden dark:text-slate-900 z-50">
       <div className="z-0 flex-1 overflow-y-scroll">
         <motion.header
           style={{
