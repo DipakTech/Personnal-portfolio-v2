@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import DOMPurify from "isomorphic-dompurify";
+import "./blog-style.css";
 
 interface SafeHTMLProps {
   html: string;
@@ -8,7 +9,6 @@ interface SafeHTMLProps {
 
 const SafeHTML: React.FC<SafeHTMLProps> = ({ html }) => {
   const sanitizedHtml = DOMPurify.sanitize(html);
-
   return (
     <div
       className="w-full max-w-6xl mx-auto px-4 sm:px-6"

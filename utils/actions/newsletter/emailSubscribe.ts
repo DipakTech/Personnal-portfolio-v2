@@ -1,4 +1,5 @@
 "use server";
+
 import WelcomeEmailTemplate from "@/emails/welcome-email";
 import { Resend } from "resend";
 
@@ -7,12 +8,20 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function emailSubscribe(email: string) {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Hello, <hello@dipakgiri12.com.np>",
+      from: "Dipak Giri, <hello@dipakgiri12.com.np>",
       to: [email],
       subject: "Welcome email",
       react: WelcomeEmailTemplate({
         email,
       }),
+    });
+
+    await resend.contacts.create({
+      email: email,
+      firstName: "Dipak ",
+      lastName: "Giri",
+      unsubscribed: false,
+      audienceId: "783375fc-5e02-4704-9e25-a6a8154e71df",
     });
 
     if (error) return error;

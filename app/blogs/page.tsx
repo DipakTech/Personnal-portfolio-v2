@@ -13,23 +13,47 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import Image from "next/image";
 import { getBlogs } from "@/utils/actions/blog/getBlogs";
 import { getCategories } from "@/utils/actions/blog/getCategories";
+import { formatDate } from "@/utils/formatDate";
+import {
+  getBlogsByCategory,
+  searchPostByTitle,
+} from "@/utils/actions/blog/getPostByCategory";
 
-const BlogListPage = async () => {
-  const blogs = await getBlogs();
+const BlogListPage = async ({
+  searchParams,
+}: {
+  searchParams: {
+    category: string;
+    search: string;
+  };
+}) => {
+  const allBlogs = await getBlogs();
   const categories = await getCategories();
+  const categoryBlogs = await getBlogsByCategory(searchParams.category);
+  const searchByTitleInput = await searchPostByTitle(searchParams.search);
 
+  const blogs =
+    categoryBlogs.length > 0
+      ? categoryBlogs
+      : searchByTitleInput.length > 0
+      ? searchByTitleInput
+      : allBlogs;
   return (
     <>
       <Header />
       <main className="min-h-[calc(100vh-97px)] pt-24 flex-1 ">
         <BentoGrid className="max-w-6xl mx-auto " categories={categories}>
-          {items.map((item, i) => (
+          {blogs.map((item: any, i: number) => (
             <BentoGridItem
               key={i}
               title={item.title}
-              description={item.description}
-              header={item.header}
-              icon={item.icon}
+              // description={item.description}
+              // header={item.header}
+              // icon={item.icon}
+              thumbnail={item.thumbnail}
+              postSlug={item.slug}
+              tags={item.tags}
+              createdAt={formatDate(item.createdAt)}
               className={i === 3 || i === 6 ? "md:col-span-2" : ""}
             />
           ))}
@@ -40,61 +64,3 @@ const BlogListPage = async () => {
 };
 
 export default BlogListPage;
-
-const Skeleton = () => (
-  // bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100
-  <div className="flex flex-1 w-full h-full min-h-[8rem] rounded-xl ">
-    <Image
-      className="w-full rounded-md object-cover"
-      alt="blog image"
-      src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-      width={500}
-      height={350}
-    />
-  </div>
-);
-const items = [
-  {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
-    header: <Skeleton />,
-    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
-    header: <Skeleton />,
-    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
-    header: <Skeleton />,
-    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Power of Communication",
-    description:
-      "Understand the impact of effective communication in our lives.",
-    header: <Skeleton />,
-    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Pursuit of Knowledge",
-    description: "Join the quest for understanding and enlightenment.",
-    header: <Skeleton />,
-    icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Joy of Creation",
-    description: "Experience the thrill of bringing ideas to life.",
-    header: <Skeleton />,
-    icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
-  },
-  {
-    title: "The Spirit of Adventure",
-    description: "Embark on exciting journeys and thrilling discoveries.",
-    header: <Skeleton />,
-    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
-  },
-];

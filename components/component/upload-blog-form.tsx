@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import {
   Card,
   CardHeader,
@@ -51,10 +51,10 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
   const [seoKeywords, setSeoKeywords] = useState<string[]>([]);
   const [category, setCategory] = useState<string>();
   const [image, setImage] = useState<string>();
-  const [content, setContent] = useState<string | Content | null>("");
   const [globalState, setEditglobalState] = useState<string | Content | null>(
-    content,
+    "",
   );
+  const [content, setContent] = useState<string | Content | null>(globalState);
 
   const handleSubmit = () => {
     startTransition(async () => {
@@ -68,12 +68,54 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
         metaDescription: blogInfo.metaDescription,
         thumbnail: image,
       });
+
+      console.log({
+        content,
+        tags,
+        seoKeywords,
+        categoryId: category,
+        author: blogInfo.author,
+        title: blogInfo.title,
+        metaDescription: blogInfo.metaDescription,
+        thumbnail: image,
+      });
+
+      // reset form
+
+      // setBlogInfo({
+      //   author: "",
+      //   title: "",
+      //   metaDescription: "",
+      //   slug: "",
+      // });
+
+      // setTags([]);
+      // setSeoKeywords([]);
+      // setCategory("");
+      // setImage("");
+      // setEditglobalState("");
+      // setContent("");
+
+      // console.log({
+      //   content: globalState,
+      //   tags,
+      //   seoKeywords,
+      //   categoryId: category,
+      //   author: blogInfo.author,
+      //   title: blogInfo.title,
+      //   metaDescription: blogInfo.metaDescription,
+      //   thumbnail: image,
+      // });
     });
   };
 
   const handleChange = (value: any): void => {
     setContent(value);
   };
+
+  useEffect(() => {
+    setContent(globalState);
+  }, [globalState]);
 
   return (
     <Card className="w-full mt-5 z-auto">
@@ -154,7 +196,7 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
                     maxFiles: 5,
                   }}
                   onSuccess={(result: any, { widget }) => {
-                    setImage(result?.info?.thumbnail_url);
+                    setImage(result?.info?.secure_url);
                   }}
                   onQueuesEnd={(result, { widget }) => {
                     widget.close();
@@ -172,8 +214,8 @@ export function BlogUploadForm({ categories }: { categories: any[] }) {
                           <Image
                             src={image}
                             alt="uploaded image"
-                            height={100}
-                            width={100}
+                            height={840}
+                            width={500}
                           />
                         )}
                       </>

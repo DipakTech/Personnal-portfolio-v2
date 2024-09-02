@@ -30,7 +30,7 @@ model Post {
     updatedAt       DateTime     @updatedAt
     title           String       @db.VarChar(255)
     category        PostCategory @relation(fields: [postCategoryId], references: [id])
-    slug            String       @db.VarChar(255)
+    slug            String       @unique
     thumbnail       String?
     content         String?
     seoKeywords     String?

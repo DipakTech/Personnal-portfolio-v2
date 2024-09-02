@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/utils/db";
 import { getUserFromClerkID } from "@/utils/auth";
 import { generateSlug } from "@/utils/generateSlug";
-import { connect } from "http2";
+import redis from "@/lib/redisClient";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
   try {
     const currentUser = await getUserFromClerkID();
     const body = await request.json();
+    console.log(body, "body");
     const {
       content,
       tags,
@@ -47,6 +49,8 @@ export async function POST(request: Request) {
       metaDescription,
       thumbnail,
     } = body;
+
+    console.log(currentUser, "current user..");
 
     // Check if current user exists
     if (!currentUser?.id) {
@@ -80,6 +84,11 @@ export async function POST(request: Request) {
       },
     });
 
+    await redis.del("cached:posts");
+    await redis.del("cached:totalPosts");
+
+    revalidatePath("/blogs");
+
     return Response.json({
       success: true,
       message: "Post created successfully",
@@ -90,3 +99,67 @@ export async function POST(request: Request) {
     return new Response("Internal Server Error", { status: 500 });
   }
 }
+
+// "use server";
+// import redis from "@/lib/redisClient";
+// import { getUserFromClerkID } from "@/utils/auth";
+// import { prisma } from "@/utils/db";
+// import { generateSlug } from "@/utils/generateSlug";
+// import { revalidatePath } from "next/cache";
+// import { FieldValues } from "react-hook-form";
+
+// export const createBlog = async (data: FieldValues) => {
+//   const {
+//     content,
+//     tags,
+//     seoKeywords,
+//     categoryId,
+//     title,
+//     metaDescription,
+//     thumbnail,
+//   } = data;
+
+//   try {
+//     const currentUser = await getUserFromClerkID();
+
+//     if (!currentUser?.id) {
+//       return new Response("Unauthorized", { status: 401 });
+//     }
+
+//     // Create a new post
+//     const postedData = await prisma.post.create({
+//       data: {
+//         title,
+//         metaDescription,
+//         slug: generateSlug(title),
+//         content,
+//         published: false,
+//         authorId: currentUser.id,
+//         postCategoryId: categoryId,
+//         tags: {
+//           create: tags.map((tagName: string) => ({
+//             tag: {
+//               connectOrCreate: {
+//                 where: { name: tagName },
+//                 create: { name: tagName },
+//               },
+//             },
+//           })),
+//         },
+//         seoKeywords: Array.isArray(seoKeywords)
+//           ? seoKeywords.join(",")
+//           : seoKeywords,
+//         thumbnail,
+//       },
+//     });
+
+//     await redis.del("cached:posts");
+//     await redis.del("cached:totalPosts");
+
+//     revalidatePath("/blogs");
+
+//     return postedData;
+//   } catch (error: any) {
+//     return error;
+//   }
+// };

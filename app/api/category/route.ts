@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/db";
 import { getUserFromClerkID } from "@/utils/auth";
+import redis from "@/lib/redisClient";
 
 export async function GET() {
   try {
@@ -30,6 +31,8 @@ export async function POST(request: Request) {
         name: title,
       },
     });
+
+    redis.del("cached:categories");
 
     return NextResponse.json({
       success: "true",

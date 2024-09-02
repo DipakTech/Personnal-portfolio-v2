@@ -19,7 +19,7 @@ export const ExampleForm = ({
   aiGenerated,
   handleChange,
 }: {
-  aiGenerated: Content;
+  aiGenerated: Content | null;
   handleChange: (val: any) => void;
 }) => {
   const formSchema = z.object({

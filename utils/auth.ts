@@ -4,8 +4,6 @@ import { auth, User } from "@clerk/nextjs/server";
 export const getUserFromClerkID = async () => {
   const { userId } = auth();
 
-  const users = await prisma.user.findMany({});
-
   if (!userId) throw new Error("No user id found");
   const user = await prisma.user.findUnique({
     where: {
@@ -18,7 +16,6 @@ export const getUserFromClerkID = async () => {
       name: true,
     },
   });
-  console.log(user, "user");
 
   return user;
 };

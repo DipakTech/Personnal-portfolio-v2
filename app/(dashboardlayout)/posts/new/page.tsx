@@ -15,6 +15,7 @@ import { getCategories } from "@/utils/actions/blog/getCategories";
 
 export default async function NewPostPage() {
   const categories = await getCategories();
+
   return (
     <ContentLayout title="New Post">
       <Breadcrumb>

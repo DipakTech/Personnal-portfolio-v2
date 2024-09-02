@@ -13,13 +13,22 @@ import Particles from "@/components/hero/particles";
 import Header from "@/components/Header/Header";
 import { getBlog } from "@/utils/actions/blog/getBlog";
 import SafeHTML from "./safe-html";
-import "./blog-style.css";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
-export default async function IntegrationsSingle() {
-  const blog: any = await getBlog("12002772-6387-4deb-a86a-9a620757481f");
+export default async function IntegrationsSingle({
+  params,
+}: {
+  params: {
+    slug: string;
+  };
+}) {
+  const { slug } = params;
+  const slugName = slug[0];
+  const blog = await getBlog(slugName);
+
   return (
-    <section className="relative">
+    <section className="relative ">
       <div className="mb-20">
         <Header />
       </div>
@@ -52,7 +61,7 @@ export default async function IntegrationsSingle() {
       <div className="max-w-6xl mx-auto px-4 md:px-0 mt-20">
         <div className="md:flex md:justify-between">
           {/* Page content */}
-          <div className=" pb-12 md:pb-20">
+          <div className=" pb-10">
             <div className=" mx-auto ">
               <div className="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-10">
                 {/* Back button */}
@@ -77,29 +86,33 @@ export default async function IntegrationsSingle() {
                 {/* Content */}
                 <div>
                   <article className=" mb-12 border-b [border-image:linear-gradient(to_right,transparent,theme(colors.slate.800),transparent)1]">
-                    <figure className="bg-slate-700/20 border border-slate-300/10 p-4 rounded-3xl mb-8">
-                      <Image
-                        className="w-full rounded-2xl"
-                        src={IntegrationImg}
-                        width={586}
-                        height={300}
-                        alt="Integration image"
-                      />
+                    <figure className="bg-slate-700/20 border border-slate-300/10 p-2 rounded-3xl mb-8">
+                      {blog?.thumbnail && (
+                        <Image
+                          className="w-full h-[450px] object-cover  rounded-2xl"
+                          src={blog.thumbnail}
+                          width={586}
+                          height={300}
+                          alt="Integration image"
+                        />
+                      )}
                     </figure>
                     <aside className="pl-6 border-l-2 border-purple-500">
                       <p className="inline-flex font-medium italic text-lg bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
                         “ Author”
                       </p>
                       <footer className="flex items-center space-x-4">
-                        <Image
-                          className="shrink-0 rounded-full"
-                          src={blog.author.userAvatar}
-                          width={32}
-                          height={32}
-                          alt="Author"
-                        />
+                        {blog?.author?.userAvatar && (
+                          <Image
+                            className="shrink-0 rounded-full"
+                            src={blog.author.userAvatar}
+                            width={32}
+                            height={32}
+                            alt="Author"
+                          />
+                        )}
                         <div className="text-sm font-medium text-slate-300">
-                          {blog.author.name}{" "}
+                          {blog?.author?.name}{" "}
                           <span className="text-slate-700">-</span>{" "}
                         </div>
                       </footer>
@@ -111,8 +124,15 @@ export default async function IntegrationsSingle() {
                     <h1 className="heading-node prose max-w-none mt-5 px-5 text-white prose-headings:text-slate-50 prose-h2:text-[25px] prose-h2:mt-8 prose-h2:mb-4 prose-p:leading-relaxed prose-a:text-purple-500 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-50 prose-strong:font-medium prose-blockquote:pl-5 prose-blockquote:xl:-ml-5 prose-blockquote:border-l-2 prose-blockquote:border-purple-500 prose-blockquote:font-medium prose-blockquote:text-slate-300 prose-blockquote:italic">
                       {blog?.title}
                     </h1>
-                    <SafeHTML html={blog.content} />
+                    {blog?.content && <SafeHTML html={blog?.content} />}
                   </article>
+                  <div className="flex  gap-2  max-w-6xl  px-4 md:px-0 ">
+                    {blog?.tags.map((tag: any) => (
+                      <Badge className="w-fit" key={tag.tag.id}>
+                        {tag.tag.name}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -36,7 +36,7 @@ export const WelcomeEmailTemplate = ({ email }: { email: string }) => (
           />
           <Heading style={global.heading}>Welcome to my Newsletter</Heading>
           <Text style={global.text}>
-            Hi, {email}! I&apos;m Dipak Giri, a software engineer. II&apos;mm
+            Hi, {email}! I&apos;m Dipak Giri, a software engineer. I&apos;m
             excited to have you on board.
           </Text>
           <Text style={{ ...global.text, marginTop: 24 }}>

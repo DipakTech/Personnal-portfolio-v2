@@ -20,13 +20,18 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import { subscriberList } from "@/utils/actions/newsletter/getSubscriberList";
+import { totalPosts } from "@/utils/actions/blog/totalPosts";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const emailList: any = await subscriberList();
+  const totalBlogPost = await totalPosts();
+
   return (
     <>
       <ContentLayout title="Dashboard">
@@ -48,7 +53,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between space-y-2">
               <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
               <div className="flex items-center space-x-2">
-                <CalendarDateRangePicker />
+                {/* <CalendarDateRangePicker /> */}
                 <Button>Download</Button>
               </div>
             </div>
@@ -57,9 +62,9 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Total Revenue
+                    Total Posts
                   </CardTitle>
-                  <svg
+                  {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="none"
@@ -70,13 +75,13 @@ export default function DashboardPage() {
                     className="h-4 w-4 text-muted-foreground"
                   >
                     <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
+                  </svg> */}
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">$45,231.89</div>
-                  <p className="text-xs text-muted-foreground">
+                  <div className="text-2xl font-bold">{totalBlogPost}</div>
+                  {/* <p className="text-xs text-muted-foreground">
                     +20.1% from last month
-                  </p>
+                  </p> */}
                 </CardContent>
               </Card>
               <Card>
@@ -167,13 +172,13 @@ export default function DashboardPage() {
               </Card>
               <Card className="col-span-4 md:col-span-3">
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>Recent Email Subscribers</CardTitle>
                   <CardDescription>
-                    You made 265 sales this month.
+                    you made {emailList?.data?.data?.length} email subscribers.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <RecentSales emailList={emailList} />
                 </CardContent>
               </Card>
             </div>
