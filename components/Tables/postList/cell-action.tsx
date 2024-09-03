@@ -8,10 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Post } from "@/constrants/category-data";
+// import { Post } from "@/constrants/category-data";
 import { cn } from "@/lib/utils";
 
 import { File, FileInput, LoaderCircleIcon, MoreVertical } from "lucide-react";
+import { Post } from "./type";
 
 interface CellActionProps {
   data: Post;

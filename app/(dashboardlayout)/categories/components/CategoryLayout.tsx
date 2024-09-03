@@ -23,7 +23,7 @@ const CategoryLayout = ({ categories }: { categories: any }) => {
       </div>
       <div>
         <AddCategory isOpen={open} onClose={onClose} />
-        <CategoryListClient />
+        <CategoryListClient categories={categories} />
       </div>
     </>
   );

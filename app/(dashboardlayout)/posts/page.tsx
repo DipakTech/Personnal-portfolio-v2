@@ -13,8 +13,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { PostListTable } from "@/components/Tables/postList/client";
 
 import AddPost from "@/components/buttons/AddPost";
+import { getBlogs } from "@/utils/actions/blog/getBlogs";
+import { totalPosts } from "@/utils/actions/blog/totalPosts";
 
-const BreadCrumb = () => {
+const BreadCrumb = async () => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -38,7 +40,10 @@ const BreadCrumb = () => {
   );
 };
 
-export default function PostsPage() {
+export default async function PostsPage() {
+  const blogs = await getBlogs();
+  const totalBlogs = await totalPosts();
+
   return (
     <ContentLayout title="All Posts">
       <div className="flex w-full justify-between">
@@ -46,7 +51,7 @@ export default function PostsPage() {
         <AddPost />
       </div>
       <ScrollArea className="h-[calc(100vh-210px)]">
-        <PostListTable />
+        <PostListTable blogs={blogs} totalBlogs={totalBlogs} />
       </ScrollArea>
     </ContentLayout>
   );

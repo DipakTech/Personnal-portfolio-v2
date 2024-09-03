@@ -11,12 +11,8 @@ export const activeColumns: ColumnDef<Category>[] = [
   },
 
   {
-    header: "Category Image",
-    accessorKey: "image",
-    cell: (info) => info.getValue(),
-  },
-  {
     id: "actions",
+    accessorKey: "action",
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

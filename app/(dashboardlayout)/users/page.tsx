@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { DataTableDemo } from "./components/Table";
 
 export default function UsersPage() {
   return (
@@ -33,6 +34,7 @@ export default function UsersPage() {
         </BreadcrumbList>
       </Breadcrumb>
       {/* <PlaceholderContent /> */}
+      <DataTableDemo />
     </ContentLayout>
   );
 }

@@ -1,4 +1,4 @@
-export function formatDate(dateString: Date) {
+export function formatDate(dateString: Date | number | string) {
   const date = new Date(dateString);
 
   const day = date.getUTCDate();

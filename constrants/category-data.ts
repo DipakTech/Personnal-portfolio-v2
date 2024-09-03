@@ -67,7 +67,7 @@ export const postData: Post[] = [
 
 export type Category = {
   name: string;
-  image: string;
+  image?: string;
 };
 
 export const categoryData: Category[] = [

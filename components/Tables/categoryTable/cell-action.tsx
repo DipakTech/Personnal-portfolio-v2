@@ -12,7 +12,13 @@ import {
 import { Category } from "@/constrants/category-data";
 import { cn } from "@/lib/utils";
 
-import { File, FileInput, LoaderCircleIcon, MoreVertical } from "lucide-react";
+import {
+  File,
+  FileInput,
+  LoaderCircleIcon,
+  MoreVertical,
+  Trash,
+} from "lucide-react";
 
 interface CellActionProps {
   data: Category;
@@ -51,20 +57,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="center">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            // onClick={handleDocument}
-            className="flex items-center space-x-1 hover:cursor-pointer"
-          >
-            <File className="mr-2 h-4 w-4" />
-            <span>Download Document</span>
-          </DropdownMenuItem>
-          {/* )} */}
-          <DropdownMenuItem
-            className="flex items-center space-x-1 hover:cursor-pointer"
-            // onClick={() => setOpen(true)}
-          >
-            <FileInput className="mr-2 h-4 w-4" />
-            <span>Checkout</span>
+          <DropdownMenuItem className="flex items-center space-x-1 hover:cursor-pointer">
+            <Trash className="mr-2 h-4 w-4" />
+            <span>Delete Category</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
