@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "Offical of Index nepal.com",
-  description: "This website is the official website of Index Nepal.",
+  title: "Dipak Giri",
+  description: "This website is the official website of Dipak Giri.",
 };
 
 export default function RootLayout({
@@ -29,6 +31,7 @@ export default function RootLayout({
           </ThemeProvider>
         </ClerkProvider>
       </body>
+      <GoogleAnalytics gaId="G-X15LSR6K2X" />
     </html>
   );
 }
