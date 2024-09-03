@@ -10,8 +10,11 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { DataTableDemo } from "./components/Table";
+import { getAllUsers } from "@/utils/actions/user/getUsers";
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const users = await getAllUsers();
+
   return (
     <ContentLayout title="Users">
       <Breadcrumb>
@@ -33,8 +36,7 @@ export default function UsersPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      {/* <PlaceholderContent /> */}
-      <DataTableDemo />
+      <DataTableDemo data={users} />
     </ContentLayout>
   );
 }
