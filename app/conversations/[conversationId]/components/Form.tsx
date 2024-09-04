@@ -7,9 +7,11 @@ import MessageInput from "./MessageInput";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import useConversation from "@/hooks/useConversation";
 import { EmojiPicker } from "../../components/emoji-picker";
+import { useState, useTransition } from "react";
 
 const Form = () => {
   const { conversationId } = useConversation();
+  const [isPending, startTransition] = useTransition();
 
   const {
     register,
@@ -25,9 +27,11 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setValue("message", "", { shouldValidate: false });
-    axios.post(`/api/chat/messages`, {
-      ...data,
-      conversationId,
+    startTransition(() => {
+      axios.post(`/api/chat/messages`, {
+        ...data,
+        conversationId,
+      });
     });
   };
 
@@ -92,6 +96,7 @@ const Form = () => {
             }}
           />
           <button
+            disabled={isPending}
             type="submit"
             className="rounded-full p-2 bg-cyan-500 cursor-pointer hover:bg-cyan-600 transition"
           >

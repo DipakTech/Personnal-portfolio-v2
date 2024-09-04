@@ -96,6 +96,12 @@ export default function Header() {
               <div className="flex items-center space-x-2">
                 <Link
                   className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  href="https://portfolio.dipakgiri12.com.np/"
+                >
+                  My Portfolio
+                </Link>
+                <Link
+                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
                   href="/blogs"
                 >
                   Blogs
