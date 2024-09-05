@@ -72,6 +72,22 @@ export default function MobileMenu() {
           <li>
             <Link
               className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
+              href="https://courses.dipakgiri12.com.np"
+            >
+              Courses
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
+              href="https://portfolio.dipakgiri12.com.np/"
+            >
+              Portfolio
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
               href="/blogs"
             >
               Blogs

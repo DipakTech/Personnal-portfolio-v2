@@ -33,7 +33,7 @@ export function Footer() {
         <BackgroundDots dotColor="green" />
       </div>
 
-      <div className="container mx-auto px-4 py-16 ">
+      <div className="container mx-auto px-4 py-10 ">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="relative z-10 space-y-4">
             <h2 className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-3xl font-bold text-transparent dark:from-blue-400 dark:to-purple-500">
@@ -119,25 +119,10 @@ export function Footer() {
                   Home
                 </a>
               </li>
+
               <li>
                 <a
-                  href="#/tools"
-                  className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                >
-                  Tools
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#/about"
-                  className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#/contact"
+                  href="/contact"
                   className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   Contact
@@ -152,34 +137,18 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#/preeti-to-unicode"
+                  href="https://courses.dipakgiri12.com.np"
                   className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                 >
-                  Preeti to Unicode
+                  Courses
                 </a>
               </li>
               <li>
                 <a
-                  href="#/unicode-to-preeti"
+                  href="https://portfolio.dipakgiri12.com.np/"
                   className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                 >
-                  Unicode To Preeti
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#/nepali-date-converter"
-                  className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                >
-                  Nepali Date Converter
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#/type-in-nepali"
-                  className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                >
-                  Nepali Typer
+                  Portfolio
                 </a>
               </li>
             </ul>
@@ -195,7 +164,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="mt-12 border-t border-gray-200 pt-8 pb-5 dark:border-gray-700">
+      <div className=" border-t border-gray-200 pt-8 pb-5 dark:border-gray-700">
         <div className="container mx-auto flex flex-col items-center justify-between px-4 md:flex-row">
           <div className="mb-4 text-sm text-gray-600 md:mb-0 dark:text-gray-400">
             © 2024 Dipak. All Rights Reserved.

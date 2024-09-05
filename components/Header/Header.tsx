@@ -93,21 +93,27 @@ export default function Header() {
               }}
               className=" sm:flex items-center space-x-6 text-sm font-medium text-slate-400"
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <Link
-                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  className="hidden sm:flex font-medium text-xs text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  href="https://courses.dipakgiri12.com.np"
+                >
+                  Courses
+                </Link>
+                <Link
+                  className="hidden sm:flex font-medium text-xs text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
                   href="https://portfolio.dipakgiri12.com.np/"
                 >
                   My Portfolio
                 </Link>
                 <Link
-                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  className="hidden sm:flex font-medium text-xs text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
                   href="/blogs"
                 >
                   Blogs
                 </Link>
                 <Link
-                  className="hidden sm:flex font-medium text-sm text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  className="hidden sm:flex font-medium text-xs text-slate-900 dark:text-slate-300 dark:hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
                   href="/dashboard"
                 >
                   Dashboard
