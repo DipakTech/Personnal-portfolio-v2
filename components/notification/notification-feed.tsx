@@ -17,9 +17,11 @@ export const NotificationFeed = ({ knockToken }: { knockToken: string }) => {
 
   const currentUser = useUser();
 
+  console.log(process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY, "api key...");
+
   return (
     <KnockProvider
-      apiKey={process.env.KNOCK_PUBLIC_API_KEY!}
+      apiKey={process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY!}
       userId={currentUser.user?.id!}
       userToken={knockToken}
     >
