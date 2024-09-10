@@ -2,9 +2,13 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { createNewUser } from "@/utils/actions/user/createNewUser";
+import { Knock } from "@knocklabs/node";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+  const knockClient = new Knock(
+    "sk_test_c4Wxoy5KobV7foF8n4nBNRcJ0gnVu55O2n28b9Naysw",
+  );
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -61,6 +65,20 @@ export async function POST(req: Request) {
       first_name,
       last_name,
       image_url,
+    });
+
+    await knockClient.workflows.trigger("new-user", {
+      actor: {
+        id: id,
+        name: first_name + " " + last_name,
+        email: email_addresses[0].email_address,
+      },
+      recipients: ["user_2kdm8tDJ1IMir6gZm02lb72EmGn"],
+      // data: {
+      //   name: "Dipak Giri",
+      //   email: "dipakgiri.dev@gmail.com",
+      //   position: "software engineer",
+      // },
     });
 
     // if (!id || !email_addresses) {

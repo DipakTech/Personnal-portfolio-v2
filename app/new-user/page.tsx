@@ -8,8 +8,6 @@ const createNewUser = async () => {
 
   if (!user) return redirect("/");
 
-  console.log(user, "user,user data......");
-
   const match = await prisma.user.findUnique({
     where: {
       clerkId: user.id as string,

@@ -7,7 +7,7 @@ export const getUserFromClerkID = async () => {
   if (!userId) throw new Error("No user id found");
   const user = await prisma.user.findUnique({
     where: {
-      clerkId: userId,
+      clerkId: "user_2lscpjx8nNcprRxHIrbkiwlxS3Q",
     },
     select: {
       id: true,

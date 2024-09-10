@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   try {
     const currentUser = await getUserFromClerkID();
     const body = await request.json();
-    console.log(body, "body");
+
     const {
       content,
       tags,
@@ -49,8 +49,6 @@ export async function POST(request: Request) {
       metaDescription,
       thumbnail,
     } = body;
-
-    console.log(currentUser, "current user..");
 
     // Check if current user exists
     if (!currentUser?.id) {

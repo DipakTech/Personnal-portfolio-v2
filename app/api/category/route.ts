@@ -1,3 +1,7 @@
+import { Knock } from "@knocklabs/node";
+
+const knockClient = new Knock(process.env.KNOCK_SECRET_KEY);
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/db";
 import { getUserFromClerkID } from "@/utils/auth";
@@ -32,7 +36,36 @@ export async function POST(request: Request) {
       },
     });
 
-    redis.del("cached:categories");
+    // redis.del("cached:categories");
+
+    //
+    // The key of the workflow (from Knock dashboard)
+    // const knockNotification = await knockClient.workflows.trigger("new-user", {
+    //   actor: {
+    //     id: currentUser.id,
+    //     name: currentUser.name ?? "",
+    //     email: currentUser.email,
+    //   },
+    //   recipients: ["user_2kdm8tDJ1IMir6gZm02lb72EmGn"],
+
+    // });
+
+    // await knockClient.workflows.trigger("invoice-created", {
+    //   recipients: [
+    //     {
+    //       id: currentUser.id,
+    //       name: currentUser.name ?? "",
+    //       email: currentUser.email,
+    //     },
+    //   ],
+    //   data: {
+    //     name: "Dipak Giri",
+    //     email: "dipakgiri.dev@gmail.com",
+    //     position: "software engineer",
+    //   },
+    // });
+
+    //
 
     return NextResponse.json({
       success: "true",

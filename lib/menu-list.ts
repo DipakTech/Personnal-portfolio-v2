@@ -6,6 +6,7 @@ import {
   SquarePen,
   LayoutGrid,
   LucideIcon,
+  File,
 } from "lucide-react";
 
 type Submenu = {
@@ -93,6 +94,13 @@ export function getMenuList(pathname: string): Group[] {
           label: "Account",
           active: pathname.includes("/account"),
           icon: Settings,
+          submenus: [],
+        },
+        {
+          href: "/generate-cover-letter",
+          label: "Generate Cover Letter",
+          active: pathname.includes("/generate-cover-letter"),
+          icon: File,
           submenus: [],
         },
       ],
