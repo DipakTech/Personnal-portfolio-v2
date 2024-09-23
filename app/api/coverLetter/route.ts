@@ -53,6 +53,9 @@ export async function GET(request: Request) {
     }
 
     const myCoverLetters = await prisma.coverLetter.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
       where: {
         userId: {
           equals: currentUser.id,

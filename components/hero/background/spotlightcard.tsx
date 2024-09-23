@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Spotlight, { SpotlightCard } from "./spotlight-card";
 
 export function SpotlightPage() {
@@ -32,7 +33,7 @@ export function SpotlightPage() {
                     /> */}
                   </div>
                   {/* Text */}
-                  <a href="#">
+                  <Link href="/conversations">
                     <div className="tool-card group overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-lg dark:bg-gray-900 dark:hover:bg-gray-750">
                       <div className="p-5">
                         <div className="mb-3 flex items-center justify-between">
@@ -66,7 +67,7 @@ export function SpotlightPage() {
                         </p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </SpotlightCard>
@@ -96,7 +97,7 @@ export function SpotlightPage() {
                     /> */}
                   </div>
                   {/* Text */}
-                  <a href="#">
+                  <Link href="/blogs">
                     <div className="tool-card group overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-lg dark:bg-gray-900 dark:hover:bg-gray-750">
                       <div className="p-5">
                         <div className="mb-3 flex items-center justify-between">
@@ -122,15 +123,15 @@ export function SpotlightPage() {
                           </span>
                         </div>
                         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
-                          Share your Knowledge
+                          Blog Posts
                         </h3>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
-                          Share your knowledge via blog post. automate with
-                          artifical intelligent to write effieient blog post.
+                          Read the latest articles and tutorials related to
+                          frontend and backend technology
                         </p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </SpotlightCard>

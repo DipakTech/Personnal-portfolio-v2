@@ -15,7 +15,7 @@ const GenerateCoverLetterButton = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className="flex justify-end items-ends">
-      <Dialog defaultOpen={open}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="py-1 rounded-full ">Generate Cover Letter</Button>
         </DialogTrigger>
