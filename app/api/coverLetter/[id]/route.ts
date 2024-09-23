@@ -14,8 +14,6 @@ export async function DELETE(
     const currentUser = await getUserFromClerkID();
     const { id } = params;
 
-    console.log(id);
-
     // Check if current user exists
     if (!currentUser) {
       return new NextResponse("Unauthorized", { status: 401 });

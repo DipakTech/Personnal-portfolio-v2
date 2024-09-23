@@ -25,6 +25,8 @@ import { centerTruncate } from "@/lib/center-truncate";
 import { Badge } from "@/components/ui/badge";
 import CoverLetterTableSkeleton from "./table-skeleton";
 import useDeleteCoverLetter from "@/hooks/mutation/useDeleteCoverLetter";
+import { LoaderCircleIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const DetailDialogModal = ({
   children,

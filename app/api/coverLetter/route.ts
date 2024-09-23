@@ -5,11 +5,14 @@ import { getUserFromClerkID } from "@/utils/auth";
 export async function POST(request: Request) {
   try {
     const currentUser = await getUserFromClerkID();
+
+    if (!currentUser?.id || !currentUser?.email) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
     const body = await request.json();
     // Get data from body (single user & group)
     const { company, position, description, cv, coverLetter } = body;
-
-    console.log(currentUser, "currentUser");
 
     // Check if current user exists
     if (!currentUser?.id || !currentUser?.email) {

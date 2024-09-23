@@ -9,6 +9,7 @@ import usePostGeneratedCoverLetter from "@/hooks/mutation/usePostGeneratedCoverL
 import { useUser } from "@clerk/nextjs";
 
 import { useState } from "react";
+// import { DownloadModal } from "./LoadingModal";
 
 export function CoverLetterForm({
   setOpen,
@@ -33,10 +34,6 @@ export function CoverLetterForm({
       fullName: user?.fullName ?? "Dipak Giri",
     });
 
-    // response.status === 200
-    //   ? alert("Cover Letter Generated Successfully")
-    //   : alert("Error in Generating Cover Letter");
-
     const coverLetter = await response.data.coverLetter.response;
 
     await postGeneratedCoverLetter.mutateAsync({
@@ -53,43 +50,46 @@ export function CoverLetterForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className=" space-y-4">
-      <Input
-        name="company"
-        placeholder="Company"
-        value={formData.company}
-        onChange={handleInputChange}
-      />
-      <Input
-        name="position"
-        placeholder="Position"
-        value={formData.position}
-        onChange={handleInputChange}
-      />
-      <Textarea
-        name="description"
-        placeholder="Job Description"
-        value={formData.description}
-        onChange={handleInputChange}
-        className="min-h-[250px]"
-      />
-      <Textarea
-        name="cv"
-        placeholder="Your CV"
-        value={formData.cv}
-        onChange={handleInputChange}
-        className="min-h-[250px]"
-      />
-      <LoadingButton
-        loading={generateCoverLetterMutation.isPending}
-        type="submit"
-        className="w-full"
-        disabled={generateCoverLetterMutation.isPending}
-      >
-        {generateCoverLetterMutation.isPending
-          ? "Generating..."
-          : "Generate Cover Letter"}
-      </LoadingButton>
-    </form>
+    <>
+      {/* <DownloadModal loading={generateCoverLetterMutation.isPending} /> */}
+      <form onSubmit={handleSubmit} className=" space-y-4">
+        <Input
+          name="company"
+          placeholder="Company"
+          value={formData.company}
+          onChange={handleInputChange}
+        />
+        <Input
+          name="position"
+          placeholder="Position"
+          value={formData.position}
+          onChange={handleInputChange}
+        />
+        <Textarea
+          name="description"
+          placeholder="Job Description"
+          value={formData.description}
+          onChange={handleInputChange}
+          className="min-h-[250px]"
+        />
+        <Textarea
+          name="cv"
+          placeholder="Your CV"
+          value={formData.cv}
+          onChange={handleInputChange}
+          className="min-h-[250px]"
+        />
+        <LoadingButton
+          loading={generateCoverLetterMutation.isPending}
+          type="submit"
+          className="w-full"
+          disabled={generateCoverLetterMutation.isPending}
+        >
+          {generateCoverLetterMutation.isPending
+            ? "Generating..."
+            : "Generate Cover Letter"}
+        </LoadingButton>
+      </form>
+    </>
   );
 }
