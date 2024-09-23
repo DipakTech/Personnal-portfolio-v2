@@ -16,16 +16,21 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 
-import { useClerk } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 interface MenuProps {
   isOpen: boolean | undefined;
 }
 
 export function Menu({ isOpen }: MenuProps) {
-  const pathname = usePathname();
-  const menuList = getMenuList(pathname);
+  const { user } = useUser();
   const { signOut } = useClerk();
+  const pathname = usePathname();
+  const email = user?.emailAddresses[0].emailAddress;
+
+  if (!user && !email) return null;
+
+  const menuList = getMenuList(pathname, email ?? "");
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
