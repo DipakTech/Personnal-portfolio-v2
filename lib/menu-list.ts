@@ -110,15 +110,8 @@ export function getMenuList(pathname: string, email: string): Group[] {
   else
     return [
       {
-        groupLabel: "Settings",
+        groupLabel: "Generate",
         menus: [
-          {
-            href: "/account",
-            label: "Account",
-            active: pathname.includes("/account"),
-            icon: Settings,
-            submenus: [],
-          },
           {
             href: "/generate-cover-letter",
             label: "Generate Cover Letter",
