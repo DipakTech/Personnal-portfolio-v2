@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web-service:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    
+    restart: unless-stopped
+    # depends_on:
+      # - backend
+  # backend:
+  #   build:
+  #     context: ./backend/
+  #   ports:
+  #     - 8080:8080
+  #   restart: unless-stopped
+        #nginx:
+        #image: hh-ngninx80
+        #ports:
+        #- '80:80'
+        #depends_on:
+        #- frontend
+
+
+

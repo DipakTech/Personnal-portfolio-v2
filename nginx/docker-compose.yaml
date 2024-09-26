@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ../frontend/
+    ports:
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ../backend/
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+        #nginx:
+        #image: hh-ngninx80
+        #ports:
+        #- '80:80'
+        #depends_on:
+        #- frontend
