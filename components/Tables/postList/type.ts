@@ -5,19 +5,19 @@ export interface Post {
   published: boolean;
   authorId: string;
   category: Category;
-  createdAt: string;
+  createdAt: Date;
   id: string;
   title: string;
   slug: string;
-  thumbnail: string;
+  thumbnail: string | null;
   tags: Tag[];
 }
 
 export interface Author {
   id: string;
   email: string;
-  name: string;
-  userAvatar: string;
+  name: string | null;
+  userAvatar: string | null;
 }
 
 export interface Category {

@@ -4,11 +4,11 @@ import { prisma } from "@/utils/db";
 export async function getBlogs() {
   try {
     // check redis if data is cached
-    const cachedPosts = await redis.get("cached:posts");
+    // const cachedPosts = await redis.get("cached:posts");
 
-    if (cachedPosts) {
-      return JSON.parse(cachedPosts);
-    }
+    // if (cachedPosts) {
+    //   return JSON.parse(cachedPosts);
+    // }
 
     const posts = await prisma.post.findMany({
       skip: 0,
@@ -46,7 +46,7 @@ export async function getBlogs() {
       },
     });
 
-    await redis.set("cached:posts", JSON.stringify(posts));
+    // await redis.set("cached:posts", JSON.stringify(posts));
 
     return posts;
   } catch (error: any) {

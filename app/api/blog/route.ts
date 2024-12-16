@@ -82,8 +82,8 @@ export async function POST(request: Request) {
       },
     });
 
-    await redis.del("cached:posts");
-    await redis.del("cached:totalPosts");
+    // await redis.del("cached:posts");
+    // await redis.del("cached:totalPosts");
 
     revalidatePath("/blogs");
 

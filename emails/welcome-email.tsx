@@ -17,7 +17,7 @@ import * as React from "react";
 
 const baseUrl = process.env.BASE_URL
   ? `https://${process.env.BASE_URL}`
-  : "https://dipakgiri12.com.np/images/logo.png";
+  : "/images/logo.png";
 
 export const WelcomeEmailTemplate = ({ email }: { email: string }) => (
   <Html>
@@ -28,7 +28,7 @@ export const WelcomeEmailTemplate = ({ email }: { email: string }) => (
         <Hr style={global.hr} />
         <Section style={message}>
           <Img
-            src={`https://dipakgiri12.com.np/images/logo.png`}
+            src={`/images/logo.png`}
             width="30"
             height="22"
             alt="Dipak Giri"
