@@ -135,17 +135,17 @@ export function Footer() {
               Quick Links
             </h3>
             <ul className="space-y-2">
-              <li>
+              {/* <li>
                 <a
                   href="https://courses.dipakgiri12.com.np"
                   className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   Courses
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
-                  href="https://portfolio.dipakgiri12.com.np/"
+                  href="https://dipakgiree.com.np"
                   className="text-gray-600 transition-colors duration-200 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   Portfolio

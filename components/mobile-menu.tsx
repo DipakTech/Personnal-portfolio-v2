@@ -69,18 +69,18 @@ export default function MobileMenu() {
         }
       >
         <ul className="border border-transparent [background:linear-gradient(theme(colors.slate.900),_theme(colors.slate.900))_padding-box,_conic-gradient(theme(colors.slate.400),_theme(colors.slate.700)_25%,_theme(colors.slate.700)_75%,_theme(colors.slate.400)_100%)_border-box] rounded-lg px-4 py-1.5">
-          <li>
+          {/* <li>
             <Link
               className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
               href="https://courses.dipakgiri12.com.np"
             >
               Courses
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               className="flex font-medium text-sm text-slate-300 hover:text-white py-1.5"
-              href="https://portfolio.dipakgiri12.com.np/"
+              href="https://dipakgiree.com.np/"
             >
               Portfolio
             </Link>

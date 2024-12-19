@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function emailSubscribe(email: string) {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Dipak Giri, <hello@dipakgiri12.com.np>",
+      from: "Dipak Giri, <hello@oneclickresult.com>",
       to: [email],
       subject: "Welcome email",
       react: WelcomeEmailTemplate({
@@ -18,8 +18,8 @@ export async function emailSubscribe(email: string) {
 
     await resend.contacts.create({
       email: email,
-      firstName: "Dipak ",
-      lastName: "Giri",
+      firstName: email.split("@")[0],
+      lastName: "",
       unsubscribed: false,
       audienceId: "783375fc-5e02-4704-9e25-a6a8154e71df",
     });
