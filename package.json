@@ -1,18 +1,15 @@
 {
-  "name": "indexnepal",
+  "name": "myapp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build ",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "email": "email dev",
-    "postinstall": "prisma generate --schema=prisma/schema.prisma"
+    "email": "email dev"
   },
-  "prisma": {
-          "schema": "prisma/schema.prisma"
-  },
+
   "dependencies": {
     "@clerk/nextjs": "^5.3.1",
     "@emoji-mart/data": "^1.2.1",
@@ -89,11 +86,11 @@
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^3.1.0",
     "zod": "^3.23.8",
-    "zustand": "^4.5.4"
+    "zustand": "^4.5.4",
+    "prisma": "^5.18.0"
   },
   "devDependencies": {
     "@prisma/client": "^5.18.0",
-    "prisma": "^5.18.0",
     "@types/dompurify": "^3.0.5",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20",

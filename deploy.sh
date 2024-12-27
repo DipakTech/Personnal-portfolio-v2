@@ -5,7 +5,7 @@ APP_DIR=/home/ubuntu/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
 # Update package list and upgrade existing packages
-sudo apt update && sudo apt upgrade -y
+sudo dnf update -y
 
 # Add Swap Space
 echo "Adding swap space..."
@@ -19,18 +19,19 @@ fi
 
 # Install Docker
 echo "Installing Docker..."
-sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
-sudo apt update
-sudo apt install docker-ce -y
+sudo dnf install -y yum-utils device-mapper-persistent-data lvm2
+sudo dnf config-manager --add-repo https://download.docker.com/linux/oracle/docker-ce.repo
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
+
+# Start and enable Docker
+sudo systemctl enable --now docker
+sudo systemctl start docker
 
 # Install Docker Compose
 echo "Installing Docker Compose..."
 sudo rm -f /usr/local/bin/docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-# Wait for the file to be fully downloaded before proceeding
 if [ ! -f /usr/local/bin/docker-compose ]; then
     echo "Docker Compose download failed. Exiting."
     exit 1
@@ -39,15 +40,12 @@ fi
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-# Verify Docker Compose 
+# Verify Docker Compose
 docker-compose --version
 if [ $? -ne 0 ]; then
     echo "Docker Compose installation failed. Exiting."
     exit 1
 fi
-# Ensure Docker starts on boot and start Docker service
-sudo systemctl enable docker
-sudo systemctl start docker
 
 # Clone the Git repository
 if [ -d "$APP_DIR" ]; then
@@ -61,7 +59,7 @@ fi
 
 # Install Nginx
 echo "Installing Nginx..."
-sudo apt install nginx -y
+sudo dnf install -y nginx
 
 # Stop any service using port 80
 echo "Stopping services on port 80..."
@@ -109,7 +107,7 @@ EOL
 echo "Creating Nginx symbolic link..."
 sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
 
-# Test nginx configuration
+# Test Nginx configuration
 echo "Testing Nginx configuration..."
 sudo nginx -t
 
@@ -145,3 +143,4 @@ echo "Deployment complete! Your application should be available at http://$DOMAI
 echo "Please check the logs if you encounter any issues:"
 echo "Nginx logs: sudo journalctl -u nginx"
 echo "Docker logs: sudo docker-compose logs"
+
